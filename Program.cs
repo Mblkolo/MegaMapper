@@ -14,15 +14,21 @@ var result = await classicMappings.Execute(new[]{1, 5, 8, 34});
 //Print(result);
 
 //Наивный маппер
-//Каждый метод мапинга получает нужный объект и загружает всё недостающее
+//Каждый метод маппинга получает нужный объект и загружает всё недостающее
 Console.WriteLine();
 Console.WriteLine(nameof(InnocentMapper));
 var innocentMapper = new InnocentMapper();
 var result2 = await innocentMapper.Execute(new[] { 1, 5, 8, 34 });
-Print(result2);
+//Print(result2);
 
 
-
+//Наивный маппер версия 2
+//Каждый метод маппинга ид и грузит только один объект
+Console.WriteLine();
+Console.WriteLine(nameof(InnocentMapperV2));
+var innocentMapperV2 = new InnocentMapperV2();
+var result3 = await innocentMapper.Execute(new[] { 1, 5, 8, 34 });
+Print(result3);
 
 static void Print<T>(T @object)
 {
