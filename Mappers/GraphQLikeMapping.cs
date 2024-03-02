@@ -244,7 +244,7 @@ public class GraphQLikeBinder
             var id = idFunc(obj);
             if (values.TryGetValue(id, out var value))
                 setAction(obj.Dto, value);
-            // TODO else throw error?
+            // TODO else throw error? Параметр для этого?
         }
     }
 }
