@@ -3,7 +3,7 @@ using MegaMapper.Repositories;
 
 namespace MegaMapper.Mappers;
 
-public class ClassicMappings
+public class ClassicMappings : IMappings
 {
     private EmployeesRepository _employeesRepository;
     private GroupsRepository _groupsRepository;
@@ -16,7 +16,7 @@ public class ClassicMappings
         _absenceRepository = new AbsenceRepository();
     }
 
-    public async Task<EmployeeDto[]> Excecute(int[] employeeIds)
+    public async Task<EmployeeDto[]> Execute(int[] employeeIds)
     {
         var employees = await _employeesRepository.GetByIds(employeeIds);
         var employeeGroups = await _groupsRepository.GetByEmployeeIds(employeeIds);

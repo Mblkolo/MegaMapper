@@ -14,6 +14,7 @@ public class GroupsRepository
                 x => x.GroupId,
                 x => x.Id,
                 (member, group) => (member, group))
+            .Where(x => employeeIds.Contains(x.member.EmployeeId))
             .GroupBy(x => x.member.EmployeeId)
             .ToDictionary(x => x.Key, x => x.Select(y => y.group).ToArray());
         return Task.FromResult(result);
