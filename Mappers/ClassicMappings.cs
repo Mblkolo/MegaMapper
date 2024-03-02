@@ -9,23 +9,30 @@ public class ClassicMappings
     private GroupsRepository _groupsRepository;
     private AbsenceRepository _absenceRepository;
 
-    public EmployeeDto[] Excecute(int[] employeeIds)
+    public ClassicMappings()
     {
-        var employees = _employeesRepository.GetByIds(employeeIds);
-        var employeeGroups = _groupsRepository.GetByEmployeeIds(employeeIds);
+        _employeesRepository = new EmployeesRepository();
+        _groupsRepository = new GroupsRepository();
+        _absenceRepository = new AbsenceRepository();
+    }
+
+    public async Task<EmployeeDto[]> Excecute(int[] employeeIds)
+    {
+        var employees = await _employeesRepository.GetByIds(employeeIds);
+        var employeeGroups = await _groupsRepository.GetByEmployeeIds(employeeIds);
 
         var groupsIds = employeeGroups.SelectMany(x => x.Value).Select(x => x.Id).Distinct().ToArray();
-        var groupMembers = _groupsRepository.GetMembersByGroupIds(
+        var groupMembers = await _groupsRepository.GetMembersByGroupIds(
             groupsIds,
             max: 5);
 
         var groupEmployeeIds = groupMembers.SelectMany(x => x.Value).Select(x => x.EmployeeId).Distinct().ToArray();
-        var groupEmployees = _employeesRepository.GetByIds(groupEmployeeIds);
+        var groupEmployees = await _employeesRepository.GetByIds(groupEmployeeIds);
 
-        var groupTags = _groupsRepository.GetTagsByGroupIds(groupsIds);
+        var groupTags = await _groupsRepository.GetTagsByGroupIds(groupsIds);
 
         var allEmployeesIds = employees.Keys.Concat(groupEmployees.Keys).Distinct().ToArray();
-        var absencesByEmployeeIds = _absenceRepository.GetNearAbsencesByEmployeeIds(allEmployeesIds);
+        var absencesByEmployeeIds = await _absenceRepository.GetNearAbsencesByEmployeeIds(allEmployeesIds);
 
         return employees.Select(x => ToEmployeeDto(
             x.Value,
