@@ -30,6 +30,15 @@ var innocentMapperV2 = new InnocentMapperV2();
 var result3 = await innocentMapper.Execute(new[] { 1, 5, 8, 34 });
 Print(result3);
 
+
+//GraphQLike маппер версия 1
+//Все объекты одного порядка грузятся сразу одновременно
+Console.WriteLine();
+Console.WriteLine(nameof(GraphQLikeMapping));
+var graphQLikeMapping = new GraphQLikeMapping();
+var result4 = await graphQLikeMapping.Execute(new[] { 1, 5, 8, 34 });
+Print(result4);
+
 static void Print<T>(T @object)
 {
     Console.WriteLine(JsonSerializer.Serialize(@object, new JsonSerializerOptions
