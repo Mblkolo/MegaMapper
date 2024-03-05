@@ -28,7 +28,7 @@ Console.WriteLine();
 Console.WriteLine(nameof(InnocentMapperV2));
 var innocentMapperV2 = new InnocentMapperV2();
 var result3 = await innocentMapper.Execute(new[] { 1, 5, 8, 34 });
-Print(result3);
+//Print(result3);
 
 
 //GraphQLike маппер версия 1
@@ -37,7 +37,15 @@ Console.WriteLine();
 Console.WriteLine(nameof(GraphQLikeMapping));
 var graphQLikeMapping = new GraphQLikeMapping();
 var result4 = await graphQLikeMapping.Execute(new[] { 1, 5, 8, 34 });
-Print(result4);
+//Print(result4);
+
+//GraphQLike маппер версия 2
+//Все объекты одного порядка грузятся сразу одновременно
+Console.WriteLine();
+Console.WriteLine(nameof(GraphQLikeMappingV2));
+var graphQLikeMappingV2 = new GraphQLikeMappingV2();
+var result5 = await graphQLikeMappingV2.Execute(new[] { 1, 5, 8, 24 });
+Print(result5);
 
 static void Print<T>(T @object)
 {
